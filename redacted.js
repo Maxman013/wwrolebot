@@ -58,20 +58,20 @@ bot.on("ready", () => {
 
 		});
 
-		/*message = channels.get(RULES).messages.fetch(RULES_MESSAGE).then(message => {
+		message = channels.get(RULES).messages.fetch(RULES_MESSAGE).then(message => {
 			// create rules reaction listener
 			const collector = message.createReactionCollector(filterRules, {});
 
 			// on reaction add listener
 			collector.on("collect", (reaction, user) => {
 				guild.members.fetch(user).then(member => {
-					if (!member.roles.find(r => r.name == "Playing") && !member.roles.find(r => r.name == "Spectating")) {
+					if (!member.roles.cache.some(r => r.name == "Playing") && !member.roles.cache.some(r => r.name == "Spectating")) {
 						member.roles.add(guild.roles.cache.get(SPECTATING));
 					}
 				});
 			});
 
-		});*/
+		});
 	});
 });
 
