@@ -9,12 +9,13 @@ const bot = new Discord.Client();
 const TOKEN = "[REDACTED]";
 // IDs from werewolves server
 const GUILD = "811349244077277224";
-const CHANNEL = "835508641322237992";
-const MESSAGE = "835523310792081468";
+const REACT_CHANNEL = "835508641322237992";
+const REACT_MESSAGE = "835523310792081468";
 const PLAYING = "811349665252507658";
 const SPECTATING = "811550093030195240";
 const WELCOME = "811349245125722114";
 const RULES = "811548666275954728";
+const DELETION_LOG = "835763598625996800";
 
 // reaction listener filter
 const filter = (reaction, user) => {
@@ -26,7 +27,7 @@ bot.on("ready", () => {
 	console.log("Ready");
 	bot.user.setActivity("d u c k");
 	bot.guilds.fetch(GUILD).then(guild => {
-		const message = guild.channels.cache.get(CHANNEL).messages.fetch(MESSAGE).then(message => {
+		const message = guild.channels.cache.get(REACT_CHANNEL).messages.fetch(REACT_MESSAGE).then(message => {
 
 			// create reaction listener, also listening for removals
 			const collector = message.createReactionCollector(filter, {dispose: true});
@@ -54,7 +55,7 @@ bot.on("ready", () => {
 // if we need to redo the actual message at any point (will need to restart bot probably)
 bot.on("message", message => {
 	if (message.content == "!newemojilistener") {
-		message.guild.channels.cache.get(CHANNEL).send({embed: {
+		message.guild.channels.cache.get(REACT_CHANNEL).send({embed: {
 		    "title": "Role Assignment",
 		    "description": "React to this message with :duck: to give yourself the <@&" + PLAYING + "> role. Remove your reaction to give yourself the <@&" + SPECTATING + "> role. This channel will be inaccessible once the game starts.",
 		    "color": 5661183,
@@ -69,9 +70,30 @@ bot.on("message", message => {
 		    }
 		}}).then(message => {
 			message.react("🦆");
-			MESSAGE = message.id;
+			REACT_MESSAGE = message.id;
 		});
 	}
+});
+
+// message deletion log
+bot.on("messageDelete", message => {
+	var date = new Date();
+	var time = date.toUTCString();
+	message.guild.channels.cache.get(DELETION_LOG).send({embed: {
+		"title": "Message deletion in " + message.channel.name,
+		"description": message.content,
+		"color": 14354697,
+		"author": {
+			"name": message.author.tag
+		},
+		"footer": {
+	    	"text": "The Bouncer"
+	    },
+		"thumbnail": {
+			"url": message.author.avatarURL()
+		},
+		"timestamp": time
+	}});
 });
 
 // welcome message + auto assign spectator role
