@@ -11,6 +11,7 @@ const TOKEN = "[REDACTED]";
 const GUILD = "811349244077277224";
 const REACT_CHANNEL = "835508641322237992";
 const REACT_MESSAGE = "835523310792081468";
+const RULES_MESSAGE = "835866126499708968";
 const PLAYING = "811349665252507658";
 const SPECTATING = "811550093030195240";
 const WELCOME = "811349245125722114";
@@ -19,8 +20,12 @@ const DELETION_LOG = "835763598625996800";
 const LEAVE = "835803145702866974";
 
 // reaction listener filter
-const filter = (reaction, user) => {
+const filterPlay = (reaction, user) => {
 	return reaction.emoji.name === '🦆';
+};
+
+const filterRules = (reaction, user) => {
+	return reaction.emoji.name === "✅";
 };
 
 // on startup set up listener
@@ -28,10 +33,12 @@ bot.on("ready", () => {
 	console.log("Ready");
 	bot.user.setActivity("d u c k");
 	bot.guilds.fetch(GUILD).then(guild => {
-		const message = guild.channels.cache.get(REACT_CHANNEL).messages.fetch(REACT_MESSAGE).then(message => {
+		const channels = guild.channels.cache;
 
-			// create reaction listener, also listening for removals
-			const collector = message.createReactionCollector(filter, {dispose: true});
+		var message = channels.get(REACT_CHANNEL).messages.fetch(REACT_MESSAGE).then(message => {
+
+			// create playing reaction listener, also listening for removals
+			const collector = message.createReactionCollector(filterPlay, {dispose: true});
 
 			// on reaction add listener
 			collector.on("collect", (reaction, user) => {
@@ -50,6 +57,21 @@ bot.on("ready", () => {
 			});
 
 		});
+
+		/*message = channels.get(RULES).messages.fetch(RULES_MESSAGE).then(message => {
+			// create rules reaction listener
+			const collector = message.createReactionCollector(filterRules, {});
+
+			// on reaction add listener
+			collector.on("collect", (reaction, user) => {
+				guild.members.fetch(user).then(member => {
+					if (!member.roles.find(r => r.name == "Playing") && !member.roles.find(r => r.name == "Spectating")) {
+						member.roles.add(guild.roles.cache.get(SPECTATING));
+					}
+				});
+			});
+
+		});*/
 	});
 });
 
@@ -71,7 +93,6 @@ bot.on("message", message => {
 		    }
 		}}).then(message => {
 			message.react("🦆");
-			REACT_MESSAGE = message.id;
 		});
 	}
 
@@ -108,14 +129,16 @@ bot.on("message", message => {
       },
       {
         "name": "Important",
-        "value": "If you have read everything, go to <#835508641322237992> to get <@&811349665252507658>, or take away your reaction to get <@&811550093030195240>\n\u200B"
+        "value": "If you have read everything, react with ✅ to this message. Then go to <#835508641322237992> to get <@&811349665252507658>, or take away your reaction to get <@&811550093030195240>\n\u200B"
       },
       {
         "name": "Server invite",
         "value": "Use this Link to share the server\nhttps://discord.gg/jnJk99ZKdx"
       }
     ]
-}})
+}}).then(message => {
+	message.react("✅");
+})
 	}
 });
 
