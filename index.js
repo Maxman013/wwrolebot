@@ -12,7 +12,7 @@ const TOKEN = fs.readFileSync("token.txt", "utf8");
 const GUILD = "811349244077277224";
 const REACT_CHANNEL = "835508641322237992";
 const REACT_MESSAGE = "835523310792081468";
-const RULES_MESSAGE = "835866126499708968";
+const RULES_MESSAGE = "836248844290228284";
 const PLAYING = "811349665252507658";
 const SPECTATING = "811550093030195240";
 const WELCOME = "811349245125722114";
@@ -117,6 +117,10 @@ bot.on("message", message => {
 		      	{
 			        "name": "Metagaming",
 			        "value": "- No sending any screenshots, not even in the wolf chat\n- Making group chats to talk about in-game happenings is NOT permitted\n- Do not talk about the game outside this server except for DMs and whispers\n\u200B"
+		      	},
+		      	{
+		      		"name": "Message deletion",
+		      		"value": "Deleting messages is not allowed in any game-related channel. We have a deletion log and can see if you delete messages.\n\u200B"
 		      	},
 		      	{
 		        	"name": "Whispers",
