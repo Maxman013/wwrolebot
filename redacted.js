@@ -98,47 +98,47 @@ bot.on("message", message => {
 
 	if (message.content == "!rulesembed") {
 		message.channel.send({embed: {
-    "title": "General Rules",
-    "description": "Welcome to Werewolves, a real time social deduction game hosted via discord! These rules are in place to keep the game and this server a fun and happy place.\n\u200B",
-    "color": 7254209,
-    "footer": {
-      "text": "The Bouncer"
-    },
-    "thumbnail": {
-      "url": "https://i1.sndcdn.com/avatars-000486250830-gwg59v-t500x500.jpg"
-    },
-    "author": {
-      "name": "Werewolves"
-    },
-    "fields": [
-      {
-        "name": "Metagaming",
-        "value": "- No sending any screenshots, not even in the wolf chat\n- Making group chats to talk about in-game happenings is NOT permitted\n- Do not talk about the game outside this server except for DMs and whispers\n\u200B"
-      },
-      {
-        "name": "Whispers",
-        "value": "Players get 3 whispers daily, a whisper can consist of multiple messages, must be announced in the main chat with the message “player is whispering player”, and cannot be privately responded to without the receiver using a whisper or a DM.\n\nWhispers reset once the dawn message is sent.\n\u200B"
-      },
-      {
-        "name": "DMs",
-        "value": "Players get 5 DMs per game. DMs are only 1 message, do not have to be publicly announced, and cannot be privately responded to by the receiver without them using a DM or a whisper.\n\u200B"
-      },
-      {
-        "name": "THE NUMBER 1 RULE OF ALL SOCIAL DEDUCTION DISCORD SERVERS",
-        "value": "What happens in game, stays in game\nNothing should be taken personally\nWe will not tolerate insults, being rude, or bullying in any other way\n\nWe are a collective, if you do one of these things, all of the social deduction servers in the hub will know\nIf you feel like you were banned unjustly for breaking this rule, appeal it in the hub server\n\u200B"
-      },
-      {
-        "name": "Important",
-        "value": "If you have read everything, react with ✅ to this message. Then go to <#835508641322237992> to get <@&811349665252507658>, or take away your reaction to get <@&811550093030195240>\n\u200B"
-      },
-      {
-        "name": "Server invite",
-        "value": "Use this Link to share the server\nhttps://discord.gg/jnJk99ZKdx"
-      }
-    ]
-}}).then(message => {
-	message.react("✅");
-})
+		    "title": "General Rules",
+		    "description": "Welcome to Werewolves, a real time social deduction game hosted via discord! These rules are in place to keep the game and this server a fun and happy place.\n\u200B",
+		    "color": 7254209,
+		    "footer": {
+		    	"text": "The Bouncer"
+		    },
+		    "thumbnail": {
+		      	"url": "https://i1.sndcdn.com/avatars-000486250830-gwg59v-t500x500.jpg"
+		    },
+		    "author": {
+		      	"name": "Werewolves"
+		    },
+		    "fields": [
+		      	{
+			        "name": "Metagaming",
+			        "value": "- No sending any screenshots, not even in the wolf chat\n- Making group chats to talk about in-game happenings is NOT permitted\n- Do not talk about the game outside this server except for DMs and whispers\n\u200B"
+		      	},
+		      	{
+		        	"name": "Whispers",
+		        	"value": "Players get 3 whispers daily, a whisper can consist of multiple messages, must be announced in the main chat with the message “player is whispering player”, and cannot be privately responded to without the receiver using a whisper or a DM.\n\nWhispers reset once the dawn message is sent.\n\u200B"
+		      	},
+		      	{
+		       		"name": "DMs",
+		       		"value": "Players get 5 DMs per game. DMs are only 1 message, do not have to be publicly announced, and cannot be privately responded to by the receiver without them using a DM or a whisper.\n\u200B"
+		      	},
+		      	{
+		        	"name": "THE NUMBER 1 RULE OF ALL SOCIAL DEDUCTION DISCORD SERVERS",
+		        	"value": "What happens in game, stays in game\nNothing should be taken personally\nWe will not tolerate insults, being rude, or bullying in any other way\n\nWe are a collective, if you do one of these things, all of the social deduction servers in the hub will know\nIf you feel like you were banned unjustly for breaking this rule, appeal it in the hub server\n\u200B"
+		      	},
+		      	{
+		        	"name": "Important",
+		        	"value": "If you have read everything, react with ✅ to this message. Then go to <#" + REACT_CHANNEL + "> to get <@&" + PLAYING + ">, or take away your reaction to get <@&" + SPECTATING + ">\n\u200B"
+		      	},
+		      	{
+		        	"name": "Server invite",
+		        	"value": "Use this Link to share the server\nhttps://discord.gg/jnJk99ZKdx"
+		      	}
+		    ]
+		}}).then(message => {
+			message.react("✅");
+		});
 	}
 });
 
