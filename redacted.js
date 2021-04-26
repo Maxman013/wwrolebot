@@ -3,10 +3,11 @@
  * Maxman013 2021
  */
 
-// discord bot setupi
+// discord bot setup
 const Discord = require("discord.js");
 const bot = new Discord.Client();
-const TOKEN = "[REDACTED]";
+const fs = require("fs");
+const TOKEN = fs.readFileSync("token.txt", "utf8");
 // IDs from werewolves server
 const GUILD = "811349244077277224";
 const REACT_CHANNEL = "835508641322237992";
