@@ -19,6 +19,8 @@ const WELCOME = "811349245125722114";
 const RULES = "811548666275954728";
 const DELETION_LOG = "835763598625996800";
 const LEAVE = "835803145702866974";
+// executing role list generator
+const spawn = require("child_process").spawn;
 
 // reaction listener filter
 const filterPlay = (reaction, user) => {
@@ -141,6 +143,17 @@ bot.on("message", message => {
 			message.react("✅");
 		});
 	}
+
+	if (message.content.substring(0, 9) == "!rolelist") {
+		var args = ["-W", "ignore", "rolelist.py"]
+		var givenArgs = message.content.split(" ");
+		givenArgs.shift();
+		args = args.concat(givenArgs);
+		var rolelist = spawn("python3", args);
+		rolelist.stdout.on("data", data => {
+			message.channel.send(data.toString());
+		});
+	}
 });
 
 // message deletion log
@@ -164,10 +177,9 @@ bot.on("messageDelete", message => {
 	}});
 });
 
-// welcome message + auto assign spectator role
+// welcome message
 bot.on("guildMemberAdd", member => {
 	bot.guilds.fetch(GUILD).then(guild => {
-		member.roles.add(guild.roles.cache.get(SPECTATING));
 		guild.channels.cache.get(WELCOME).send("Welcome <@" + member.id + ">! Please read the rules at <#" + RULES + ">!");
 	});
 })
