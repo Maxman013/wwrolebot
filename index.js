@@ -15,6 +15,7 @@ const REACT_MESSAGE = "835523310792081468";
 const RULES_MESSAGE = "836248844290228284";
 const PLAYING = "811349665252507658";
 const SPECTATING = "811550093030195240";
+const DEAD = "811352352871153674";
 const WELCOME = "811349245125722114";
 const RULES = "811548666275954728";
 const DELETION_LOG = "835763598625996800";
@@ -158,6 +159,21 @@ bot.on("message", message => {
 			message.channel.send(data.toString());
 		});
 	}
+
+    if (message.content == "!resetroles") {
+        if (message.member.roles.cache.some(r => (r.name == "Game master" || r.name == "Moderator"))) {
+            var guild = message.guild;
+            guild.members.cache.forEach(member => {
+                if (member.roles.cache.some(r => (r.id == PLAYING || r.id == DEAD))) {
+                    member.roles.remove(guild.roles.cache.get(PLAYING));
+                    member.roles.remove(guild.roles.cache.get(DEAD));
+                    member.roles.add(guild.roles.cache.get(SPECTATING));
+                }
+            });
+        } else {
+            message.channel.send("You do not have permission to perform this command.");
+        }
+    }
 });
 
 // message deletion log
