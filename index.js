@@ -79,8 +79,8 @@ bot.on("ready", () => {
 	});
 });
 
-// if we need to redo the actual message at any point (will need to restart bot probably)
 bot.on("message", message => {
+    // create play-or-no-play embed (will need to restart bot probably)
 	if (message.content == "!newemojilistener") {
 		message.guild.channels.cache.get(REACT_CHANNEL).send({embed: {
 		    "title": "Role Assignment",
@@ -100,6 +100,7 @@ bot.on("message", message => {
 		});
 	}
 
+    // create rules embed (will need to restart bot probably)
 	if (message.content == "!rulesembed") {
 		message.channel.send({embed: {
 		    "title": "General Rules",
@@ -149,6 +150,10 @@ bot.on("message", message => {
 		});
 	}
 
+    // generate role list
+    // arg1 = number of players
+    // arg2 = number of extra neutrals (default floor(num players / 9) + 1) - can be negative
+    // arg3 = number of extra wolves (default floor(num players / 4)) - can be negative
 	if (message.content.substring(0, 9) == "!rolelist") {
 		var args = ["-W", "ignore", "rolelist.py"]
 		var givenArgs = message.content.split(" ");
@@ -160,6 +165,7 @@ bot.on("message", message => {
 		});
 	}
 
+    // end of game sequence - remove playing and dead roles from all players and give them spectating
     if (message.content == "!resetroles") {
         if (message.member.roles.cache.some(r => (r.name == "Game master" || r.name == "Moderator"))) {
             var guild = message.guild;
@@ -177,6 +183,8 @@ bot.on("message", message => {
         }
     }
 
+    // kill mentioned users in game - remove playing role and give dead role
+    // can mention multiple people - will kill each player mentioned
     if (message.content.substring(0,5) == "!kill") { 
         if (message.member.roles.cache.some(r => (r.name == "Game master" || r.name == "Moderator"))) {
             var toKill = message.mentions.members;
