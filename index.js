@@ -176,6 +176,19 @@ bot.on("message", message => {
             message.channel.send("You do not have permission to perform this command.");
         }
     }
+
+    if (message.content.substring(0,5) == "!kill") { 
+        if (message.member.roles.cache.some(r => (r.name == "Game master" || r.name == "Moderator"))) {
+            var toKill = message.mentions.members;
+            var guild = message.guild;
+            toKill.each(member => {
+                member.roles.remove(guild.roles.cache.get(PLAYING));
+                member.roles.add(guild.roles.cache.get(DEAD));
+            });
+        } else {
+            message.channel.send("You do not have permission to perform this command.");
+        }
+    }
 });
 
 // message deletion log
