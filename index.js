@@ -163,12 +163,14 @@ bot.on("message", message => {
     if (message.content == "!resetroles") {
         if (message.member.roles.cache.some(r => (r.name == "Game master" || r.name == "Moderator"))) {
             var guild = message.guild;
-            guild.members.cache.forEach(member => {
-                if (member.roles.cache.some(r => (r.id == PLAYING || r.id == DEAD))) {
-                    member.roles.remove(guild.roles.cache.get(PLAYING));
-                    member.roles.remove(guild.roles.cache.get(DEAD));
-                    member.roles.add(guild.roles.cache.get(SPECTATING));
-                }
+            guild.members.fetch().then(members => {
+                members.each(member => {
+                    if (member.roles.cache.some(r => (r.id == PLAYING || r.id == DEAD))) {
+                        member.roles.remove(guild.roles.cache.get(PLAYING));
+                        member.roles.remove(guild.roles.cache.get(DEAD));
+                        member.roles.add(guild.roles.cache.get(SPECTATING));
+                    }
+                });
             });
         } else {
             message.channel.send("You do not have permission to perform this command.");
