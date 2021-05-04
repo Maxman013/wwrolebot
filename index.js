@@ -11,7 +11,7 @@ const TOKEN = fs.readFileSync("token.txt", "utf8");
 // IDs from werewolves server
 const GUILD = "811349244077277224";
 const REACT_CHANNEL = "835508641322237992";
-const REACT_MESSAGE = "835523310792081468";
+const REACT_MESSAGE = "839073713672028170";
 const RULES_MESSAGE = "836248844290228284";
 const PLAYING = "811349665252507658";
 const SPECTATING = "811550093030195240";
@@ -165,8 +165,23 @@ bot.on("message", message => {
 		});
 	}
 
+    // start of game sequence - closes #play-or-no-play to spectating and playing
+    if (message.content == "!startgame") {
+        if (message.member.roles.cache.some(r => (r.name == "Game master" || r.name == "Moderator"))) {
+            message.guild.channels.cache.get(REACT_CHANNEL).updateOverwrite(SPECTATING, {
+                "VIEW_CHANNEL": false
+            });
+            message.guild.channels.cache.get(REACT_CHANNEL).updateOverwrite(PLAYING, {
+                "VIEW_CHANNEL": false
+            });
+        } else {
+            message.channel.send("You do not have permission to perform this command.");
+        }
+    }
+
     // end of game sequence - remove playing and dead roles from all players and give them spectating
-    if (message.content == "!resetroles") {
+    // also opens up #play-or-no-play to spectating and playing
+    if (message.content == "!endgame") {
         if (message.member.roles.cache.some(r => (r.name == "Game master" || r.name == "Moderator"))) {
             var guild = message.guild;
             guild.members.fetch().then(members => {
@@ -177,6 +192,13 @@ bot.on("message", message => {
                         member.roles.add(guild.roles.cache.get(SPECTATING));
                     }
                 });
+            });
+
+            guild.channels.cache.get(REACT_CHANNEL).updateOverwrite(SPECTATING, {
+                "VIEW_CHANNEL": true
+            });
+            guild.channels.cache.get(REACT_CHANNEL).updateOverwrite(PLAYING, {
+                "VIEW_CHANNEL": true
             });
         } else {
             message.channel.send("You do not have permission to perform this command.");
