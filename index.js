@@ -20,6 +20,7 @@ const WELCOME = "811349245125722114";
 const RULES = "811548666275954728";
 const DELETION_LOG = "835763598625996800";
 const LEAVE = "835803145702866974";
+const MAIN_CHAT = "811349535896895498";
 // executing role list generator
 const spawn = require("child_process").spawn;
 
@@ -240,6 +241,54 @@ bot.on("messageDelete", message => {
 		},
 		"timestamp": time
 	}});
+
+        // if in #main-chat, post notification
+        if (message.channel == message.guild.channels.cache.get(MAIN_CHAT) && 
+            !message.member.roles.cache.some(r => (r.name == "Game master" || r.name == "Moderator")) &&
+            !message.author.equals(bot.user)) {
+        message.channel.send(`<@${message.author.id}> deleted a message.`);
+    }
+});
+
+// message edit log
+bot.on("messageUpdate", (oldMessage, newMessage) => {
+    var date = new Date();
+    var time = date.toUTCString();
+    // if message content was not changed
+    if (oldMessage.content == newMessage.content) {
+        return;
+    }
+    oldMessage.guild.channels.cache.get(DELETION_LOG).send({embed: {
+        "title": "Message edit in " + oldMessage.channel.name,
+        "fields": [
+            {
+                "name": "Old message",
+                "value": oldMessage.content
+            }, 
+            {
+                "name": "New message",
+                "value": newMessage.content
+            }
+        ],
+        "color": 1124280,
+        "author": {
+            "name": oldMessage.author.tag
+        },
+        "footer": {
+            "text": "The Bouncer"
+        },
+        "thumbnail": {
+            "url": oldMessage.author.avatarURL()
+        },
+        "timestamp": time
+    }});
+
+    // if in #main-chat, post notification
+    if (oldMessage.channel == oldMessage.guild.channels.cache.get(MAIN_CHAT) && 
+            !oldMessage.member.roles.cache.some(r => (r.name == "Game master" || r.name == "Moderator")) &&
+            !oldMessage.author.equals(bot.user)) {
+        oldMessage.channel.send(`<@${oldMessage.author.id}> edited a message.\nOld message: ${oldMessage.content}`);
+    }
 });
 
 // welcome message
