@@ -156,14 +156,18 @@ bot.on("message", message => {
     // arg2 = number of extra neutrals (default floor(num players / 9) + 1) - can be negative
     // arg3 = number of extra wolves (default floor(num players / 4)) - can be negative
 	if (message.content.substring(0, 9) == "!rolelist") {
-		var args = ["-W", "ignore", "rolelist.py"]
-		var givenArgs = message.content.split(" ");
-		givenArgs.shift();
-		args = args.concat(givenArgs);
-		var rolelist = spawn("python3", args);
-		rolelist.stdout.on("data", data => {
-			message.channel.send(data.toString());
-		});
+        if (message.member.roles.cache.some(r => (r.name == "Game master" || r.name == "Moderator"))) {
+            var args = ["-W", "ignore", "rolelist.py"]
+            var givenArgs = message.content.split(" ");
+            givenArgs.shift();
+            args = args.concat(givenArgs);
+            var rolelist = spawn("python3", args);
+            rolelist.stdout.on("data", data => {
+                message.channel.send(data.toString());
+            });
+        } else {
+            message.channel.send("You do not have permission to perform this command.");
+        }
 	}
 
     // start of game sequence - closes #play-or-no-play to spectating and playing
