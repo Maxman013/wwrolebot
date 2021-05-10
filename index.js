@@ -291,7 +291,7 @@ bot.on("messageUpdate", (oldMessage, newMessage) => {
     if (oldMessage.channel == oldMessage.guild.channels.cache.get(MAIN_CHAT) && 
             !oldMessage.member.roles.cache.some(r => (r.name == "Game master" || r.name == "Moderator")) &&
             !oldMessage.author.equals(bot.user)) {
-        oldMessage.channel.send(`<@${oldMessage.author.id}> edited a message.\nOld message: ${oldMessage.content}`);
+        oldMessage.channel.send(`<@${oldMessage.author.id}> edited a message.`);
     }
 });
 
