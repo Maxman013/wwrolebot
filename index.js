@@ -21,6 +21,7 @@ const RULES = "811548666275954728";
 const DELETION_LOG = "835763598625996800";
 const LEAVE = "835803145702866974";
 const MAIN_CHAT = "811349535896895498";
+const VOTING = "811355794440192021";
 // executing role list generator
 const spawn = require("child_process").spawn;
 
@@ -219,6 +220,24 @@ bot.on("message", message => {
             toKill.each(member => {
                 member.roles.remove(guild.roles.cache.get(PLAYING));
                 member.roles.add(guild.roles.cache.get(DEAD));
+            });
+        } else {
+            message.channel.send("You do not have permission to perform this command.");
+        }
+    }
+
+    // toggle the voting channel's send messages permissions
+    if (message.content.substring(0,5) == "!vote") {
+        if (message.member.roles.cache.some(r => (r.name == "Game master" || r.name == "Moderator"))) {
+            var givenArgs = message.content.split(" ");
+            givenArgs.shift();
+            var votingChannel = message.guild.channels.cache.get(VOTING);
+            if (!votingChannel.permissionsFor(PLAYING).serialize().SEND_MESSAGES && givenArgs.length > 0 &&
+                    givenArgs[0] == "true") {
+                message.guild.channels.cache.get(MAIN_CHAT).send(`<@&${PLAYING}> Voting is now open.`);
+            }
+            votingChannel.updateOverwrite(PLAYING, {
+                "SEND_MESSAGES": !votingChannel.permissionsFor(PLAYING).serialize().SEND_MESSAGES
             });
         } else {
             message.channel.send("You do not have permission to perform this command.");
