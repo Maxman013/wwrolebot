@@ -243,6 +243,17 @@ bot.on("message", message => {
             message.channel.send("You do not have permission to perform this command.");
         }
     }
+
+    // quick rng tool
+    if (message.content.substring(0,4) == "!rng") {
+        if (message.member.roles.cache.some(r => (r.name == "Game master" || r.name == "Moderator"))) {
+            var givenArgs = message.content.split(" ");
+            givenArgs.shift();
+            message.channel.send(Math.floor(Math.random() * (givenArgs[1] - givenArgs[0] + 1)) + parseInt(givenArgs[0]));
+        } else {
+            message.channel.send("You do not have permission to perform this command.");
+        }
+    }
 });
 
 // message deletion log
