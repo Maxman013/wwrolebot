@@ -32,10 +32,10 @@ roles = {
     'cai': ['spy', 'quizmaster', 'bird spotter', 'tracker', 'innocent girl'], #civilian additional info roles
     'ck': ['veteran', 'vigilante', 'hunter', 'priest' ], #civilian killing roles
     'cj': ['prison guard'], #civilian jailor role
-    'cw': ['scratched shepherd'] + ['1'] *29, #civilian wolf roles
+    'cw': ['scratched shepherd', 'cursed one'] + ['1'] *29, #civilian wolf roles
     'cs': ['blocker', 'escort', 'transporter', 'skin changer', 'judge', 
            'retributionist', 'gambler', 'cheater', 'flower girl', 'perfectionist',
-           'actor'], #civilian support roles
+           'actor', 'politician'], #civilian support roles
     'sisters' : ['sisters'] + (['1'] * 29)
   }
 }
@@ -45,7 +45,7 @@ unique_roles = ['pirate', 'plaguebearer', 'white wolf', 'cub', 'plague wolf', 'i
                'escort', 'priest', 'gambler', 'necromancer wolf'
                'prison guard', 'blacksmith', 'bird spotter', 'bounty hunter wolf',
                'dictator wolf', 'protection wolf', 'hunter', 'judge', 'perfectionist', 
-               'lawmaker', 'flower girl', 'buzzkill', 'actor']
+               'lawmaker', 'flower girl', 'buzzkill', 'actor', 'politician']
 
 class Player:
     def __init__ (self, faction, role, name):
