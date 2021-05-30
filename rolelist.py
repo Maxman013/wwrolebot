@@ -42,7 +42,7 @@ roles = {
 unique_roles = ['pirate', 'plaguebearer', 'white wolf', 'cub', 'plague wolf', 'infectious wolf',
                'scratched shepherd', 'cursed one', 'retributionist', 'shadow wolf',
                'wise wolf', 'big bad wolf', 'veteran', 'quizmaster',
-               'escort', 'priest', 'gambler', 'necromancer wolf'
+               'escort', 'priest', 'gambler', 'necromancer wolf',
                'prison guard', 'blacksmith', 'bird spotter', 'bounty hunter wolf',
                'dictator wolf', 'protection wolf', 'hunter', 'judge', 'perfectionist', 
                'lawmaker', 'flower girl', 'buzzkill', 'actor', 'politician']
