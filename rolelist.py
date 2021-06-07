@@ -18,7 +18,7 @@ roles = {
     'ne': ['crazed chemist', 'jester', 'hangman'], #neutral evil
     'nb': ['amnesiac', 'survivor', 'guardian angel', 'iron hein', 'cupid',
            'lawmaker'], #neutral benign
-    'nc': ['pirate', 'plaguebearer'] #neutral chaos
+    'nc': ['pirate', 'plaguebearer', 'vampire'] #neutral chaos
   },
 'wolf': {
         'wak': ['big bad wolf', 'white wolf', 'bounty hunter wolf'], #wolf additional killing
@@ -30,7 +30,7 @@ roles = {
     'ci':  ['investigator', 'detective duo', 'psychic', 'seer'], #civilian information roles
     'cp': ['bodyguard', 'doctor', 'blacksmith', 'crusader', 'trapper'], #civilian protection roles
     'cai': ['spy', 'quizmaster', 'bird spotter', 'tracker', 'innocent girl'], #civilian additional info roles
-    'ck': ['veteran', 'vigilante', 'hunter', 'priest' ], #civilian killing roles
+    'ck': ['veteran', 'vigilante', 'hunter', 'priest', 'vampire hunter'], #civilian killing roles
     'cj': ['prison guard'], #civilian jailor role
     'cw': ['scratched shepherd', 'cursed one'] + ['1'] *29, #civilian wolf roles
     'cs': ['blocker', 'escort', 'transporter', 'skin changer', 'judge', 
@@ -104,6 +104,9 @@ for person in people_roles:
             elif alignment == 'ne' and alignment_assigned.count('ne') == neutrals_amount // 2: pass
             elif person.role == 'jester' and role_assigned.count('jester') == 2: pass
             elif person.role == 'hangman' and role_assigned.count('hangman') == 2: pass
+
+            #Can't have more than 2 vamps to start
+            elif person.role == 'vampire' and role_assigned.count('vampire') == 2: pass
             else: break
 
         elif person.faction == 'civilian':
@@ -177,4 +180,7 @@ for person in people_roles:
     alignment_assigned.append(alignment)
 
 for i in people_roles:
+    if i.role == 'vampire hunter' and 'vampire' not in role_assigned:
+        i.role = 'vigilante'
+
     print(i.name, i.role)
