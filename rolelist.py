@@ -33,7 +33,7 @@ roles = {
     'ck': ['veteran', 'vigilante', 'hunter', 'priest', 'vampire hunter'], #civilian killing roles
     'cj': ['prison guard'], #civilian jailor role
     'cw': ['scratched shepherd', 'cursed one'] + ['1'] *29, #civilian wolf roles
-    'cs': ['blocker', 'escort', 'transporter', 'skin changer', 'judge', 
+    'cs': ['blocker', 'escort', 'transporter', 'skin changer', 'crooked judge', 
            'retributionist', 'gambler', 'cheater', 'flower girl', 'perfectionist',
            'actor', 'politician'], #civilian support roles
     'sisters' : ['sisters'] + (['1'] * 29)
@@ -44,7 +44,7 @@ unique_roles = ['pirate', 'plaguebearer', 'white wolf', 'cub', 'plague wolf', 'i
                'wise wolf', 'big bad wolf', 'veteran', 'quizmaster',
                'escort', 'priest', 'gambler', 'necromancer wolf',
                'prison guard', 'blacksmith', 'bird spotter', 'bounty hunter wolf',
-               'dictator wolf', 'protection wolf', 'hunter', 'judge', 'perfectionist', 
+               'dictator wolf', 'protection wolf', 'hunter', 'crooked judge', 'perfectionist', 
                'lawmaker', 'flower girl', 'buzzkill', 'actor', 'politician']
 
 class Player:
