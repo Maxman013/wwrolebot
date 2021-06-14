@@ -22,6 +22,8 @@ const DELETION_LOG = "835763598625996800";
 const LEAVE = "835803145702866974";
 const MAIN_CHAT = "811349535896895498";
 const VOTING = "811355794440192021";
+const WHISPERS = "847808289411563520";
+const DMS = "847808351047516190";
 // executing role list generator
 const spawn = require("child_process").spawn;
 
@@ -186,7 +188,7 @@ bot.on("message", message => {
     }
 
     // end of game sequence - remove playing and dead roles from all players and give them spectating
-    // also opens up #play-or-no-play to spectating and playing
+    // also opens up #play-or-no-play to spectating and playing, and deletes all DMs and whispers
     if (message.content == "!endgame") {
         if (message.member.roles.cache.some(r => (r.name == "Game master" || r.name == "Moderator"))) {
             var guild = message.guild;
@@ -205,6 +207,12 @@ bot.on("message", message => {
             });
             guild.channels.cache.get(REACT_CHANNEL).updateOverwrite(PLAYING, {
                 "VIEW_CHANNEL": true
+            });
+            guild.channels.cache.get(WHISPERS).children.each(channel => {
+                channel.delete();
+            });
+            guild.channels.cache.get(DMS).children.each(channel => {
+                channel.delete();
             });
         } else {
             message.channel.send("You do not have permission to perform this command.");
