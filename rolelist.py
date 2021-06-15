@@ -15,16 +15,17 @@ all_roles_listed = ['civilian'] * civilians_amount + ['neutral'] * neutrals_amou
 roles = {
 'neutral':{
     'nk': ['serial killer', 'arsonist', 'juggernaut'], #neutral Killing
-    'ne': ['crazed chemist', 'jester', 'hangman'], #neutral evil
-    'nb': ['amnesiac', 'survivor', 'guardian angel', 'iron hein', 'cupid',
+    'ne': ['crazed chemist', 'jester', 'hangman', 'usurper'], #neutral evil
+    'nb': ['amnesiac', 'survivor', 'guardian angel', 'cupid',
            'lawmaker'], #neutral benign
-    'nc': ['pirate', 'plaguebearer', 'vampire'] #neutral chaos
+    'nc': ['pirate', 'plaguebearer', 'vampire', 'iron hein', 'entropy'] #neutral chaos
   },
 'wolf': {
         'wak': ['big bad wolf', 'white wolf', 'bounty hunter wolf'], #wolf additional killing
         'wop': ['cub', 'plague wolf', 'infectious wolf', 'buzzkill'], #wolf op roles
         'wv': ['shadow wolf', 'protection wolf', 'fraudulent wolf', 'dictator wolf'], #wolf voting roles
-        'wa': ['forger wolf', 'consort wolf', 'wise wolf', 'silencer wolf', 'necromancer wolf', 'shaman wolf']
+        'ws': ['forger wolf', 'consort wolf', 'wise wolf', 'silencer wolf', 'necromancer wolf',
+               'shaman wolf', 'skinchanger'] #wolf support roles
 },
 'civilian': {
     'ci':  ['investigator', 'detective duo', 'psychic', 'seer'], #civilian information roles
@@ -33,19 +34,18 @@ roles = {
     'ck': ['veteran', 'vigilante', 'hunter', 'priest', 'vampire hunter'], #civilian killing roles
     'cj': ['prison guard'], #civilian jailor role
     'cw': ['scratched shepherd', 'cursed one'] + ['1'] *29, #civilian wolf roles
-    'cs': ['blocker', 'escort', 'transporter', 'skin changer', 'crooked judge', 
-           'retributionist', 'gambler', 'cheater', 'flower girl', 'perfectionist',
-           'actor', 'politician'], #civilian support roles
+    'cs': ['blocker', 'escort', 'transporter', 'crooked judge', 'dr. frankenstein',
+           'gambler', 'cheater', 'flower girl', 'perfectionist', 'actor', 'politician'], #civilian support roles
     'sisters' : ['sisters'] + (['1'] * 29)
   }
 }
 unique_roles = ['pirate', 'plaguebearer', 'white wolf', 'cub', 'plague wolf', 'infectious wolf',
-               'scratched shepherd', 'cursed one', 'retributionist', 'shadow wolf',
+               'scratched shepherd', 'cursed one', 'dr. frankenstein', 'shadow wolf',
                'wise wolf', 'big bad wolf', 'veteran', 'quizmaster',
                'escort', 'priest', 'gambler', 'necromancer wolf',
                'prison guard', 'blacksmith', 'bird spotter', 'bounty hunter wolf',
                'dictator wolf', 'protection wolf', 'hunter', 'crooked judge', 'perfectionist', 
-               'lawmaker', 'flower girl', 'buzzkill', 'actor', 'politician']
+               'lawmaker', 'flower girl', 'buzzkill', 'actor', 'politician', 'entropy', 'usurper']
 
 class Player:
     def __init__ (self, faction, role, name):
@@ -83,6 +83,7 @@ for person in people_roles:
             elif person.role == 'forger wolf' and role_assigned.count('forger wolf') == 2: pass
             elif person.role == 'consort wolf' and role_assigned.count('consort wolf') == 2: pass
             elif person.role == 'fraudulent wolf' and role_assigned.count('fraudulent wolf') == 2: pass
+            elif person.role == 'skinchanger' and role_assigned.count('skinchanger') == 2: pass
             if person.role == '1': pass
             else: break
         
@@ -165,13 +166,12 @@ for person in people_roles:
             elif person.role == 'detective duo' and role_assigned.count(person.role) == 2: pass
             elif person.role == 'blacksmith' and alignment_assigned.count('cp') == (len(people)//10 -1): pass
             elif alignment == 'cp' and 'blacksmith' in role_assigned and alignment_assigned.count('cp') == (len(people)//10 -1):pass
-            elif person.role == 'retributionist' and 'blacksmith' in role_assigned and alignment_assigned.count('cp') == (len(people)//10 - 1): pass
+            elif person.role == 'dr. frankenstein' and 'blacksmith' in role_assigned and alignment_assigned.count('cp') == (len(people)//10 - 1): pass
             elif alignment == 'ci' and 'detective duo' in role_assigned: pass
-            elif alignment == 'cp' and 'retributionist' in role_assigned and alignment_assigned.count('cp') == (len(people)//10 -1): pass
-            elif person.role == 'retributionist' and alignment_assigned.count('cp') == (len(people)//10 +1): pass
+            elif alignment == 'cp' and 'dr. frankenstein' in role_assigned and alignment_assigned.count('cp') == (len(people)//10 -1): pass
+            elif person.role == 'dr. frankenstein' and alignment_assigned.count('cp') == (len(people)//10 +1): pass
             elif person.role == 'cheater' and role_assigned.count('cheater') == 2: pass
             elif person.role == 'transporter' and role_assigned.count('transporter') == 2: pass
-            elif person.role == 'skinchanger' and role_assigned.count('skinchanger') == 2: pass
             elif person.role == 'quizmaster' and len(people) < 20: pass
             else:break
         else:break
