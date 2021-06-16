@@ -38,7 +38,6 @@ const filterRules = (reaction, user) => {
 
 // on startup set up listener
 bot.on("ready", () => {
-	console.log("Ready");
 	bot.user.setActivity("d u c k");
 	bot.guilds.fetch(GUILD).then(guild => {
 		const channels = guild.channels.cache;
@@ -81,6 +80,30 @@ bot.on("ready", () => {
 
 		});
 	});
+
+    bot.api.applications(bot.user.id).guilds(GUILD).commands.post({
+        data: {
+            name: "test",
+            description: "test command"
+        }
+    });
+
+    console.log("Ready");
+});
+
+bot.ws.on("INTERACTION_CREATE", int => {
+    var command = int.data.name.toLowerCase();
+    var args = int.data.options;
+    if (command == "test") {
+        bot.api.interactions(int.id, int.token).callback.post({
+            data: {
+                type: 4,
+                data: {
+                    content: "hello"
+                }
+            }
+        })
+    }
 });
 
 bot.on("message", message => {
@@ -258,6 +281,16 @@ bot.on("message", message => {
             var givenArgs = message.content.split(" ");
             givenArgs.shift();
             message.channel.send(Math.floor(Math.random() * (givenArgs[1] - givenArgs[0] + 1)) + parseInt(givenArgs[0]));
+        } else {
+            message.channel.send("You do not have permission to perform this command.");
+        }
+    }
+
+    if (message.content.substring(0, 5) == "!lock") {
+        if (message.member.roles.cache.some(r => (r.name == "Game master" || r.name == "Moderator"))) {
+            message.channel.updateOverwrite(PLAYING, {
+                "SEND_MESSAGES": !message.channel.permissionsFor(PLAYING).serialize().SEND_MESSAGES
+            });
         } else {
             message.channel.send("You do not have permission to perform this command.");
         }
