@@ -286,10 +286,22 @@ bot.on("message", message => {
         }
     }
 
+    // lock channel so @Playing cannot send messages
     if (message.content.substring(0, 5) == "!lock") {
         if (message.member.roles.cache.some(r => (r.name == "Game master" || r.name == "Moderator"))) {
             message.channel.updateOverwrite(PLAYING, {
-                "SEND_MESSAGES": !message.channel.permissionsFor(PLAYING).serialize().SEND_MESSAGES
+                "SEND_MESSAGES": false
+            });
+        } else {
+            message.channel.send("You do not have permission to perform this command.");
+        }
+    }
+
+    // unlock channel so @Playing has default send messages perms
+    if (message.content.substring(0, 7) == "!unlock") {
+        if (message.member.roles.cache.some(r => (r.name == "Game master" || r.name == "Moderator"))) {
+            message.channel.updateOverwrite(PLAYING, {
+                "SEND_MESSAGES": null
             });
         } else {
             message.channel.send("You do not have permission to perform this command.");
