@@ -12,7 +12,7 @@ const TOKEN = fs.readFileSync("token.txt", "utf8");
 const GUILD = "811349244077277224";
 const REACT_CHANNEL = "835508641322237992";
 const REACT_MESSAGE = "853969835766579211";
-const RULES_MESSAGE = "836248844290228284";
+const RULES_MESSAGE = "859006294437920768";
 const PLAYING = "811349665252507658";
 const SPECTATING = "811550093030195240";
 const DEAD = "811352352871153674";
@@ -145,7 +145,7 @@ bot.on("message", message => {
 		    "fields": [
 		      	{
 			        "name": "Metagaming",
-			        "value": "- No sending any screenshots, not even in the wolf chat\n- Making group chats to talk about in-game happenings is NOT permitted\n- Do not talk about the game outside this server except for DMs and whispers\n\u200B"
+			        "value": "- No sending any screenshots, not even in the wolf chat\n- Making group chats to talk about in-game happenings is NOT permitted\n- Do not talk about the game outside this server, not even in Discord DMs\n\u200B"
 		      	},
 		      	{
 		      		"name": "Message deletion",
@@ -153,11 +153,11 @@ bot.on("message", message => {
 		      	},
 		      	{
 		        	"name": "Whispers",
-		        	"value": "Players get 3 whispers daily, a whisper can consist of multiple messages, must be announced in the main chat with the message “player is whispering player”, and cannot be privately responded to without the receiver using a whisper or a DM.\n\nWhispers reset once the dawn message is sent.\n\u200B"
+		        	"value": "Players get 3 whispers daily. A whisper can consist of multiple messages, will be publicly announced in the main game chat, and cannot be privately responded to without the receiver using a whisper or a DM.\n\nWhispers reset once the dawn message is sent. Our bot, Bot of Secrecy, can be used to send whispers.\n\u200B"
 		      	},
 		      	{
 		       		"name": "DMs",
-		       		"value": "Players get 5 DMs per game. DMs are only 1 message, do not have to be publicly announced, and cannot be privately responded to by the receiver without them using a DM or a whisper.\n\u200B"
+		       		"value": "Players get 5 DMs per game. DMs are only 1 message, are **not** publicly announced, and cannot be privately responded to by the receiver without them using a DM or a whisper. Our bot, Bot of Secrecy, can be used to send DMs.\n\u200B"
 		      	},
 		      	{
 		        	"name": "THE NUMBER 1 RULE OF ALL SOCIAL DEDUCTION DISCORD SERVERS",
