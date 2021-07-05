@@ -22,7 +22,7 @@ roles = {
   },
 'wolf': {
         'wak': ['big bad wolf', 'white wolf', 'bounty hunter wolf'], #wolf additional killing
-        'wop': ['cub', 'plague wolf', 'infectious wolf', 'buzzkill'], #wolf op roles
+        'wop': ['cub', 'plague wolf', 'infectious wolf', 'buzzkill', 'hide jumper'], #wolf op roles
         'wv': ['shadow wolf', 'protection wolf', 'fraudulent wolf', 'dictator wolf'], #wolf voting roles
         'ws': ['forger wolf', 'consort wolf', 'wise wolf', 'silencer wolf', 'necromancer wolf',
                'shaman wolf', 'skinchanger'] #wolf support roles
@@ -45,7 +45,8 @@ unique_roles = ['pirate', 'plaguebearer', 'white wolf', 'cub', 'plague wolf', 'i
                'escort', 'priest', 'gambler', 'necromancer wolf',
                'prison guard', 'blacksmith', 'bird spotter', 'bounty hunter wolf',
                'dictator wolf', 'protection wolf', 'hunter', 'crooked judge', 'perfectionist', 
-               'lawmaker', 'flower girl', 'buzzkill', 'actor', 'politician', 'entropy', 'usurper']
+               'lawmaker', 'flower girl', 'buzzkill', 'actor', 'politician', 'entropy', 'usurper',
+               'hide jumper']
 
 class Player:
     def __init__ (self, faction, role, name):
